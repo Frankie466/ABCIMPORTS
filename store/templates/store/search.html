@@ -1,0 +1,39 @@
+<!-- templates/store/search_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Search Results</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results for "{{ query }}"</h1>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li class="product">
+                    <h2>{{ product.name }}</h2>
+                    <p>Price: ${{ product.price }}</p>
+                    <p>{{ product.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products found.</p>
+    {% endif %}
+
+    <a href="{% url 'homepage' %}">Back to Home</a>
+</body>
+</html>

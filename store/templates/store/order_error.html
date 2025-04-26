@@ -1,0 +1,61 @@
+{% extends 'store/home.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h2 class="mb-0">
+                <i class="fas fa-exclamation-triangle"></i> Order Error
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="text-danger">We couldn't process your order</h4>
+                    <p>There was an error while processing your payment. Please try again.</p>
+                    
+                    <div class="alert alert-warning mt-4">
+                        <h5><i class="fas fa-info-circle"></i> What to do next:</h5>
+                        <ul>
+                            <li>Check your M-Pesa transaction history to confirm payment</li>
+                            <li>Ensure you entered the correct M-Pesa code</li>
+                            <li>Verify your account has sufficient funds</li>
+                            <li>Try placing the order again</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <p>If the problem persists, please contact our support team with the following details:</p>
+                        <div class="bg-light p-3">
+                            <p class="mb-1"><strong>Error Reference:</strong> ERR-{{ request.session.session_key|slice:":8"|upper }}</p>
+                            <p class="mb-1"><strong>Time:</strong> {% now "F j, Y H:i" %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 border-left">
+                    <div class="text-center">
+                        <img src="{% static 'store/images/order-error.png' %}" alt="Order Error" class="img-fluid mb-3" style="max-height: 200px;">
+                        <h5>Need Immediate Help?</h5>
+                        <p>Our team is available 24/7:</p>
+                        <p>
+                            <i class="fas fa-phone"></i> 0700 000 000<br>
+                            <i class="fas fa-envelope"></i> support@dukayetu.com<br>
+                            <i class="fab fa-whatsapp"></i> +254 700 000 000
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="{% url 'view_cart' %}" class="btn btn-danger mr-2">
+                    <i class="fas fa-shopping-cart"></i> Back to Cart
+                </a>
+                <a href="{% url 'store' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-store"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

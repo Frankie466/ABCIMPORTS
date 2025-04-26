@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .notice {
+            text-align: center;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .till-payment {
+            background: #e9f7ef;
+            border: 1px solid #b2dfdb;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2e7d32;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .status-pending {
+            color: #FFA500;
+            font-weight: bold;
+        }
+        .status-paid {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .payment-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .payment-alert {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Your Orders</h2>
+
+    <div class="notice">
+        Pay <span style="color: #2e7d32;">Shipping Fee only</span> via M-Pesa. Product price will be paid when you collect the item at your G4S pickup station.
+    </div>
+
+    {% for order in orders %}
+        <div class="till-payment">
+            Pay <strong>Ksh {{ order.items.first.shipping_fee }}</strong> now to Till Number <strong>8600480</strong><br>
+            <small>Use your Order ID or Phone Number as the reference</small>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Shipping Fee (Pay Now)</th>
+                    <th>Product Price (On Arrival)</th>
+                    <th>Pickup Location</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {{ order.items.first.product.name }}
+                        <div class="payment-info">
+                            <strong>Breakdown:</strong><br>
+                            🚚 Shipping: Ksh {{ order.items.first.shipping_fee }}<br>
+                            🛒 Product: Ksh {{ order.items.first.price }}
+                        </div>
+                    </td>
+                    <td><strong>Ksh {{ order.items.first.shipping_fee }}</strong></td>
+                    <td><strong>Ksh {{ order.items.first.price }}</strong></td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.date_ordered|date:"M d, Y" }}</td>
+                    <td class="{% if order.status == 'Completed' %}status-paid{% else %}status-pending{% endif %}">
+                        {{ order.status }}
+                        {% if order.status == 'Payment Pending' %}
+                        <div class="payment-alert">
+                            💰 Pay Ksh {{ order.items.first.price }} when collecting at G4S
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% empty %}
+        <p style="text-align:center;">No orders found.</p>
+    {% endfor %}
+</div>
+</body>
+</html>

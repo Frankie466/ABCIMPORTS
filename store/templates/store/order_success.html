@@ -1,0 +1,179 @@
+{% extends 'store/home.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle fa-2x me-3"></i>
+                        <div>
+                            <h2 class="mb-0">Order Confirmation</h2>
+                            <p class="mb-0 small">Order #{{ order.id }} • {{ order.date_ordered|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="alert alert-success">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle fa-lg me-3"></i>
+                                    <div>
+                                        <h4 class="alert-heading mb-1">Thank you for your order!</h4>
+                                        <p class="mb-0">We've received your order and will process it shortly.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="order-summary mb-4">
+                                <h5 class="border-bottom pb-2 mb-3">Order Summary</h5>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th>Item</th>
+                                                <th class="text-end">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in order.items.all %}
+                                            <tr>
+                                                <td>
+                                                    {{ item.product.name }} 
+                                                    <span class="text-muted small">× {{ item.quantity }}</span>
+                                                </td>
+                                                <td class="text-end">Ksh {{ item.price|floatformat:2 }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        <tfoot class="bg-light">
+                                            <tr>
+                                                <th>Shipping Fee</th>
+                                                <td class="text-end">Ksh {{ order.shipping_fee|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Amount Paid Now</th>
+                                                <td class="text-end">Ksh {{ order.total|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr class="table-active">
+                                                <th>Amount Due at Pickup</th>
+                                                <td class="text-end fw-bold">Ksh {{ order.amount_due|floatformat:2 }}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="delivery-info mb-4">
+                                <h5 class="border-bottom pb-2 mb-3">Delivery Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="mb-1"><strong>Delivery Method:</strong></p>
+                                        <p>G4S Pickup Station</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-1"><strong>Pickup Location:</strong></p>
+                                        <p>
+                                            {{ order.address }}<br>
+                                            {{ order.town }}, {{ order.county }} County<br>
+                                            Phone: {{ order.phone }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-info">
+                                <h5 class="border-bottom pb-2 mb-3">Payment Information</h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-mobile-alt me-2 text-success"></i>
+                                    <div>
+                                        <p class="mb-0"><strong>M-Pesa Payment Received</strong></p>
+                                        <p class="small text-muted mb-0">Transaction Code: {{ order.mpesa_code|default:"N/A" }}</p>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Please bring your ID and payment confirmation when collecting your order.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-body text-center">
+                                    <img src="{% static 'store/images/delivery-truck.png' %}" alt="Delivery" class="img-fluid mb-3" style="max-height: 120px;">
+                                    <h5>Order Status</h5>
+                                    <div class="progress mb-3" style="height: 8px;">
+                                        <div class="progress-bar bg-success" style="width: 25%;"></div>
+                                    </div>
+                                    <ul class="list-unstyled text-start small">
+                                        <li class="mb-2">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            Order Received
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="far fa-circle text-muted me-2"></i>
+                                            Processing
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="far fa-circle text-muted me-2"></i>
+                                            Ready for Pickup
+                                        </li>
+                                        <li>
+                                            <i class="far fa-circle text-muted me-2"></i>
+                                            Completed
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Need Help?</h5>
+                                    <p class="card-text small">Our customer care team is ready to assist you.</p>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="fas fa-phone-alt me-2 text-success"></i>
+                                            <a href="tel:+254700000000">0700 000 000</a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-envelope me-2 text-success"></i>
+                                            <a href="mailto:support@dukayetu.com">support@dukayetu.com</a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-comment me-2 text-success"></i>
+                                            <a href="#">Live Chat</a>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-clock me-2 text-success"></i>
+                                            Mon-Fri: 8AM-5PM
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+                        <a href="{% url 'store' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-chevron-left me-2"></i>Continue Shopping
+                        </a>
+                        <div>
+                            <a href="{% url 'orders' %}" class="btn btn-outline-primary me-2">
+                                <i class="fas fa-clipboard-list me-2"></i>View Orders
+                            </a>
+                            <a href="#" class="btn btn-success">
+                                <i class="fas fa-print me-2"></i>Print Receipt
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

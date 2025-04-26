@@ -1,0 +1,76 @@
+{% extends 'store/home.html' %}
+
+{% block main_content %}
+<div class="contact-container" style="max-width: 800px; margin: 40px auto; padding: 30px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1 style="color: var(--primary-color); text-align: center; margin-bottom: 20px;">Contact ABC IMPORTS</h1>
+    <p style="text-align: center; color: var(--text-medium); margin-bottom: 30px;">We’re here to assist you with any inquiries or support.</p>
+
+    <div class="contact-methods" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        <!-- Contact Info -->
+        <div class="contact-details">
+            <h2 style="color: var(--secondary-color); margin-bottom: 15px;">Get in Touch</h2>
+            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                <li style="margin-bottom: 15px;">
+                    <i class="fas fa-envelope" style="color: var(--primary-color); width: 20px;"></i>
+                    <strong>Email:</strong> support@abcimports.co.ke
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fas fa-phone-alt" style="color: var(--primary-color); width: 20px;"></i>
+                    <strong>Phone:</strong> +254 700 123 456
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fab fa-whatsapp" style="color: #25D366; width: 20px;"></i>
+                    <strong>WhatsApp:</strong> 
+                    <a href="https://wa.me/254700123456?text=Hello%2C%20I%20need%20more%20info%20about%20shipment%20for%20order%20%23" 
+                       target="_blank" 
+                       style="color: var(--secondary-color); text-decoration: none;">
+                        Chat Now (Shipment Help)
+                    </a>
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fab fa-facebook" style="color: #1877F2; width: 20px;"></i>
+                    <strong>Facebook:</strong> 
+                    <a href="https://facebook.com/abcimports" target="_blank" style="color: var(--secondary-color);">@ABCIMPORTS</a>
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--danger-color); width: 20px;"></i>
+                    <strong>Address:</strong> Nairobi, Kenya
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h2 style="color: var(--secondary-color); margin-bottom: 15px;">Send a Message</h2>
+            <form method="post" style="display: grid; gap: 15px;">
+                {% csrf_token %}
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Your Name</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Email</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Message</label>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px;"></textarea>
+                </div>
+                <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Business Hours -->
+    <div class="business-hours" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+        <h2 style="color: var(--secondary-color); margin-bottom: 15px;">Business Hours</h2>
+        <ul style="list-style: none; padding: 0; line-height: 1.8;">
+            <li><strong>Mon-Fri:</strong> 8:00 AM - 5:00 PM</li>
+            <li><strong>Saturday:</strong> 9:00 AM - 2:00 PM</li>
+            <li><strong>Sunday:</strong> Closed</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

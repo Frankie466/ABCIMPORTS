@@ -1,0 +1,55 @@
+{% extends 'store/home.html' %}
+{% block main_content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="display-4 text-center mb-4" style="color: #2c3e50;">About ABC IMPORTS</h1>
+                    
+                    <div class="about-content">
+                        <p class="lead mb-4" style="line-height: 1.6;">
+                            At ABC IMPORTS, we bring quality products from China to Kenya at the most affordable prices.
+                            Our goal is to give Kenyans access to global goods without high costs or hidden charges.
+                        </p>
+                        
+                        <div class="feature-box bg-light p-4 rounded mb-4">
+                            <p class="mb-0">
+                                <i class="fas fa-shipping-fast me-2" style="color: #e74c3c;"></i>
+                                <strong>You only pay the shipping fee</strong> when placing your order. The remaining product cost is paid upon delivery at your nearest G4S station.
+                            </p>
+                        </div>
+                        
+                        <div class="highlight-box p-3 rounded" style="background-color: #f8f9fa; border-left: 4px solid #2ecc71;">
+                            <p class="mb-0">
+                                <i class="fas fa-check-circle me-2" style="color: #2ecc71;"></i>
+                                No hidden fees. No surprises. Just simple, honest importing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-content {
+        font-size: 1.1rem;
+        color: #34495e;
+    }
+    
+    .feature-box {
+        border-left: 4px solid #3498db;
+    }
+    
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    h1 {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn-checkout {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-checkout:hover {
+            background-color: #218838;
+        }
+        .btn-update, .btn-remove {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-update:hover {
+            background-color: #0069d9;
+        }
+        .btn-remove {
+            background-color: #dc3545;
+        }
+        .btn-remove:hover {
+            background-color: #c82333;
+        }
+        .btn-start-shopping {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .btn-start-shopping:hover {
+            background-color: #0069d9;
+        }
+    </style>
+    <script>
+        function confirmRemove() {
+            return confirm("Are you sure you want to remove this item from the cart?");
+        }
+    </script>
+</head>
+<body>
+
+<h2>Your Shopping Cart
+<img src="{% static 'images/cart_icon.png' %}" alt="Cart Icon" class="cart-icon">
+</h2>
+
+{% if show_start_shopping %}
+    <p>{{ cart_message }}</p>
+    <a href="{% url 'store' %}" class="btn-start-shopping">Start Shopping</a>
+{% else %}
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Actions</th>
+    </tr>
+    {% for item in cart_items %}
+    <tr>
+        <td>{{ item.product.name }}</td>
+        <td>
+            <form action="{% url 'update_cart' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                <button type="submit" class="btn-update">Update</button>
+            </form>
+        </td>
+        <td>{{ item.product.price }}/=</td>
+        <td>{{ item.get_total_price }}/=</td>
+        <td>
+            <form action="{% url 'remove_from_cart' item.id %}" method="post" onsubmit="return confirmRemove();">
+                {% csrf_token %}
+                <button type="submit" class="btn-remove">Remove</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p><strong>Total: Sh. {{ total }}</strong></p>
+
+<a href="{% url 'checkout' %}" class="btn-checkout">Proceed to Checkout</a>
+
+{% endif %}
+</body>
+</html>
