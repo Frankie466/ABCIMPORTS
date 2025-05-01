@@ -5,7 +5,7 @@ class Products(models.Model):
     name = models.CharField(max_length=60) 
     price = models.DecimalField(max_digits=10, decimal_places=2) 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1) 
-    description = models.CharField(max_length=700, default='', blank=True, null=True)
+    description = models.CharField(max_length=250, default='', blank=True, null=True)
 
     # ✅ Uploads to Cloudinary
     image = models.ImageField(upload_to='products/main_images/')  # This replaces image_url
