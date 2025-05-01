@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,8 +12,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-dyi)6%_^3p8vnv0)@+y
 DEBUG = False
 
 # Set allowed hosts for Vercel
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = [
+    '.vercel.app',
+    '.now.sh',
+    '127.0.0.1',
+    'localhost',
+]
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
     'store',
 ]
 
@@ -103,3 +112,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'frankabule201@gmail.com'
 EMAIL_HOST_PASSWORD = 'sdrjfplqvnkycymo'
 DEFAULT_FROM_EMAIL = 'Dukayetu<noreply@Frank201.com>'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dslbnx1i9',
+    'API_KEY': '697918531951276',
+    'API_SECRET': '7zN4KlZxTxrXlxV1Thv_lxOzrTg'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
