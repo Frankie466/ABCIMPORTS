@@ -4,10 +4,7 @@
     {
       "src": "mysystem/wsgi.py",
       "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb", 
-        "runtime": "python3.13"
-      }
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.13.1" }
     },
     {
       "src": "build_files.sh",
@@ -17,14 +14,15 @@
       }
     }
   ],
+  "functions": {
+    "api/**": {
+      "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
+    }
+  },
   "routes": [
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
-    },
-    {
-      "src": "/media/(.*)",
-      "dest": "/media/$1"  
     },
     {
       "src": "/(.*)",
